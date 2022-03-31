@@ -25,8 +25,19 @@ public class DeveloperRestControllerV1 {
     public Developer getById(@PathVariable Long id) {
         return DEVELOPERS
                 .stream()
-                .filter(x-> x.getId().equals(id))
+                .filter(x -> x.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @PostMapping
+    public Developer create(@RequestBody Developer developer) {
+        DEVELOPERS.add(developer);
+        return developer;
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable Long id) {
+        this.DEVELOPERS.removeIf(x -> x.getId().equals(id));
     }
 }
